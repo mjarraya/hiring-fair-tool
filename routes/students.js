@@ -7,7 +7,10 @@ router.get("/fair/:fairId/students", async (req, res) => {
     const { fairId } = req.params;
     const { course } = req.query;
 
-    const studentsP = Student.find({ fair: fairId, course });
+    const query = { fair: fairId };
+    if (course) query.course = course;
+
+    const studentsP = Student.find(query);
 
     const companiesP = Company.find({ fair: fairId, courses: course });
 

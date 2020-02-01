@@ -11,7 +11,8 @@ const fairSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  openingTimes: [String]
 });
 
 const Fair = mongoose.model("Fair", fairSchema);

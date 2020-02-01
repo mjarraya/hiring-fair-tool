@@ -6,9 +6,11 @@ router.get("/fair/:fairId/companies", async (req, res) => {
     const { fairId } = req.params;
     const { course } = req.query;
 
-    const companies = await Company.find({ fair: fairId, courses: course });
+    const query = { fair: fairId };
+    if (course) query.courses = course;
+    const companies = await Company.find(query);
 
-    res.render("companies.hbs", { companies, fair: req.session.fair });
+    res.render("companies.hbs", { course, companies, fair: req.session.fair });
   } catch (err) {
     console.log(err);
   }
@@ -20,7 +22,11 @@ router.post("/fair/:fairId/companies", async (req, res) => {
     const { displayName, courses, langFilters } = req.body;
 
     await Company.create({ displayName, courses, langFilters, fair: fairId });
-    res.redirect("/");
+    res.redirect(
+      `/fair/${fairId}/companies${
+        req.query.course ? `?course=${req.query.course}` : ""
+      }`
+    );
   } catch (err) {
     console.log(err);
   }
