@@ -1,0 +1,12 @@
+{{#each companies}}
+{{displayName}}
+{{/each}}
+
+<form action="/fair/{{fair._id}}/companies" method="post">
+  <input type="text" name="displayName" placeholder="display name" />
+  <input type="checkbox" name="courses" value="WebDev" />
+  <input type="checkbox" name="courses" value="UXUI" />
+  <input type="checkbox" name="courses" value="Data" />
+  <input type="text" name="langFilters" placeholder="langFilters" />
+  <button type="submit">Create</button>
+</form>

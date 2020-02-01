@@ -1,0 +1,18 @@
+{{#each students}}
+{{displayName}}
+{{/each}}
+
+<form action="/fair/{{fair._id}}/students" method="post">
+  <input type="text" name="displayName" placeholder="display name" />
+  <select name="course">
+    <option value="WebDev">WebDev</option>
+    <option value="UXUI">UX/UI</option>
+    <option value="Data">Data</option>
+  </select>
+  {{#each companies}}
+  <label>{{displayName}}</label>
+  <input type="checkbox" name="top3" value={{_id}} />
+  {{/each}}
+  <input type="text" name="lang" placeholder="lang" />
+  <button type="submit">Create</button>
+</form>
