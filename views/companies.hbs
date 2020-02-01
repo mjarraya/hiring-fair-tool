@@ -6,7 +6,7 @@
   {{/if}}
 </h1>
 {{#each companies}}
-{{displayName}}
+<a href="/fair/{{fair._id}}/interviews/company/{{_id}}">{{displayName}}</a>
 {{/each}}
 
 <form action="/fair/{{fair._id}}/companies{{#if course}}?course={{course}}{{/if}}" method="post">

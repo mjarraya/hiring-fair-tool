@@ -1,5 +1,5 @@
 {{#each students}}
-{{displayName}}
+<a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a>
 {{/each}}
 
 <form action="/fair/{{fair._id}}/students" method="post">

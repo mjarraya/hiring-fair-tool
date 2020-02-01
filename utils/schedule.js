@@ -7,7 +7,7 @@ const initSchedule = timeRanges => {
     for (let i = start; i <= end; ) {
       for (let j = 0; j < 5; j++) {
         if (parseFloat(i + "." + j) <= end)
-          schedule[i + "." + (j ? j * 10 : "00")] = [];
+          schedule[(i < 10 ? "0" + i : i) + "." + (j ? j * 10 : "00")] = [];
       }
       i++;
     }
@@ -70,7 +70,6 @@ const generateSchedule = (schedule, students, companies) => {
           return id.toString() === company._id.toString();
         });
       });
-      console.log(!!nextStudent);
       if (!nextStudent) {
         nextStudent = students.find(student => {
           return initialFilter(schedule, student, company, timeSlot);
@@ -82,8 +81,9 @@ const generateSchedule = (schedule, students, companies) => {
       schedule[timeSlot].push({
         student: nextStudent._id,
         company: company._id,
-        studentName: nextStudent.displayName,
-        companyName: company.displayName
+        timeSlot,
+        studentName: nextStudent.displayName, // remove later on
+        companyName: company.displayName // only for increased readability
       });
     });
   });

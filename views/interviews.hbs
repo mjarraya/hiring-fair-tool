@@ -1,3 +1,10 @@
+{{#if course}}<h1>Interviews for {{course}}</h1>{{/if}}
+{{#each interviews}}
+<p>{{student.displayName}} with {{company.displayName}} at {{timeSlot}}</p>
+{{/each}}
+
+{{#if course}}
 <form action="/fair/{{fair}}/interviews?course={{course}}" method="post">
   <button type="submit">Generate interviews for {{course}}</button>
 </form>
+{{/if}}
