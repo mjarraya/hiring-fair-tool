@@ -46,3 +46,9 @@ Should:
 - allow Kosta to create companies
 - allow Kosta to create students
 - generate interviews
+
+TODOS:
+
+- error feedback
+- styling
+- grid display?

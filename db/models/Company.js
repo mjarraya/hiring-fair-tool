@@ -18,7 +18,11 @@ const companySchema = Schema({
       enum: ["WebDev", "UXUI", "Data"]
     }
   ],
-  langFilter: String
+  // langFilter: String
+  langFilter: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const Company = mongoose.model("Company", companySchema);

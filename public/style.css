@@ -4,3 +4,33 @@ body {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
+
+h1,
+h2 {
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-evenly;
+  justify-items: baseline;
+}
+
+.list-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.list-container > form {
+  display: flex;
+  flex-direction: column;
+}
+
+form .group {
+  display: flex;
+  justify-content: space-between;
+}

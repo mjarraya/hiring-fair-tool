@@ -4,26 +4,49 @@
 <h1>All students</h1>
 {{/if}}
 
-{{#each students}}
-<a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a>
-{{/each}}
 
 
-<form action="/fair/{{fair._id}}/students" method="post">
-  <input type="text" name="displayName" placeholder="display name" />
-  <select name="course" required>
-    {{#if course}}
-    <option value="{{course}}">{{course}}</option>
-    {{else}}
-    <option value="WebDev">WebDev</option>
-    <option value="UXUI">UXUI</option>
-    <option value="Data">Data</option>
-    {{/if}}
-  </select>
-  {{#each companies}}
-  <input type="checkbox" name="top3" value={{_id}} />
-  <label>{{displayName}}</label>
-  {{/each}}
-  <input type="text" name="lang" placeholder="lang" />
-  <button type="submit">Create</button>
-</form>
+<div class="list-container">
+  <form action="/fair/{{fair._id}}/students" method="post">
+
+    <div class="group">
+      <label for="displayName">Name</label>
+      <input type="text" id="displayName" name="displayName" placeholder="display name" />
+    </div>
+
+    <div class="group">
+      <label for="course">Course</label>
+      <select name="course" id="course">
+        {{#if course}}
+        <option value="{{course}}">{{course}}</option>
+        {{else}}
+        <option value="WebDev">WebDev</option>
+        <option value="UXUI">UXUI</option>
+        <option value="Data">Data</option>
+        {{/if}}
+      </select>
+    </div>
+
+    <div class="group">
+      <label for="lang" id="lang">Local language?</label>
+      <input type="checkbox" name="lang" placeholder="lang" />
+    </div>
+
+
+    Interested in which companies? (max. 3)
+    {{#each companies}}
+    <div class="group">
+      <label for={{_id}}>{{displayName}}</label>
+      <input type="checkbox" name="top3" value={{_id}} id={{_id}} />
+    </div>
+    {{/each}}
+
+    <button type="submit">Create</button>
+  </form>
+
+  <ul>
+    {{#each students}}
+    <li><a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a></li>
+    {{/each}}
+  </ul>
+</div>

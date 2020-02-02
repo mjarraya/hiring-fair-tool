@@ -4,6 +4,9 @@
 {{/each}}
 
 {{#if student}}
+{{#if interviews.0.student.lang}}
+Speaks local language
+{{/if}}
 Top choices
 {{#each interviews.0.student.top3}}
 {{displayName}}

@@ -17,7 +17,11 @@ const studentSchema = new Schema({
     ref: "Fair",
     required: true
   },
-  lang: [String],
+  // lang: [String],
+  lang: {
+    type: Boolean,
+    default: false
+  },
   top3: {
     type: [
       {

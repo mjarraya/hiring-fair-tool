@@ -30,7 +30,7 @@ const shuffle = array => {
 };
 
 const initialFilter = (schedule, student, company, timeSlot) => {
-  if (company.langFilter && !student.lang.includes(company.langFilter)) {
+  if (company.langFilter && !student.lang) {
     return false;
   }
   if (
@@ -81,9 +81,7 @@ const generateSchedule = (schedule, students, companies) => {
       schedule[timeSlot].push({
         student: nextStudent._id,
         company: company._id,
-        timeSlot,
-        studentName: nextStudent.displayName, // remove later on
-        companyName: company.displayName // only for increased readability
+        timeSlot
       });
     });
   });

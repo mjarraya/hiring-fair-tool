@@ -11,7 +11,7 @@ router.get("/fair/:fairId/students", check(), async (req, res) => {
     const query = { fair: fairId };
     if (course) query.course = course;
 
-    const studentsP = Student.find(query);
+    const studentsP = Student.find(query).sort({ displayName: 1 });
 
     const companiesP = Company.find({ fair: fairId, courses: course });
 
@@ -32,7 +32,13 @@ router.post("/fair/:fairId/students", check(), async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course, displayName, lang, top3 } = req.body;
-    await Student.create({ fair: fairId, course, displayName, lang, top3 });
+    await Student.create({
+      fair: fairId,
+      course,
+      displayName,
+      lang: !!lang,
+      top3
+    });
 
     res.redirect(`/fair/${fairId}/students?course=${course}`);
   } catch (err) {
