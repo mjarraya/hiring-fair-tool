@@ -3,6 +3,13 @@
 <p>{{student.displayName}} with {{company.displayName}} at {{timeSlot}}</p>
 {{/each}}
 
+{{#if student}}
+Top choices
+{{#each interviews.0.student.top3}}
+{{displayName}}
+{{/each}}
+{{/if}}
+
 {{#if course}}
 <form action="/fair/{{fair}}/interviews?course={{course}}" method="post">
   <button type="submit">Generate interviews for {{course}}</button>

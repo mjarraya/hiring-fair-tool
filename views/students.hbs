@@ -21,8 +21,8 @@
     {{/if}}
   </select>
   {{#each companies}}
-  <label>{{displayName}}</label>
   <input type="checkbox" name="top3" value={{_id}} />
+  <label>{{displayName}}</label>
   {{/each}}
   <input type="text" name="lang" placeholder="lang" />
   <button type="submit">Create</button>

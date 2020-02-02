@@ -37,6 +37,7 @@ router.get("/fair/:fairId/interviews/company/:companyId", async (req, res) => {
     res.render("interviews.hbs", {
       interviews,
       fair: fairId
+      // company: true
     });
   } catch (err) {
     console.log(err);
@@ -51,12 +52,13 @@ router.get("/fair/:fairId/interviews/student/:studentId", async (req, res) => {
       fair: fairId,
       student: studentId
     })
-      .populate("student company")
+      .populate({ path: "student company", populate: { path: "top3" } })
       .sort({ timeSlot: 1 });
 
     res.render("interviews.hbs", {
       interviews,
-      fair: fairId
+      fair: fairId,
+      student: true
     });
   } catch (err) {
     console.log(err);
