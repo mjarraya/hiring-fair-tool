@@ -1,13 +1,24 @@
+{{#if course}}
+<h1>{{course}} students</h1>
+{{else}}
+<h1>All students</h1>
+{{/if}}
+
 {{#each students}}
 <a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a>
 {{/each}}
 
+
 <form action="/fair/{{fair._id}}/students" method="post">
   <input type="text" name="displayName" placeholder="display name" />
-  <select name="course">
+  <select name="course" required>
+    {{#if course}}
+    <option value="{{course}}">{{course}}</option>
+    {{else}}
     <option value="WebDev">WebDev</option>
-    <option value="UXUI">UX/UI</option>
+    <option value="UXUI">UXUI</option>
     <option value="Data">Data</option>
+    {{/if}}
   </select>
   {{#each companies}}
   <label>{{displayName}}</label>

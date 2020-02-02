@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Company = require("../db/models/Company");
+const { check } = require("../utils/auth");
 
-router.get("/fair/:fairId/companies", async (req, res) => {
+router.get("/fair/:fairId/companies", check(), async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course } = req.query;
@@ -16,12 +17,12 @@ router.get("/fair/:fairId/companies", async (req, res) => {
   }
 });
 
-router.post("/fair/:fairId/companies", async (req, res) => {
+router.post("/fair/:fairId/companies", check(), async (req, res) => {
   try {
     const { fairId } = req.params;
-    const { displayName, courses, langFilters } = req.body;
+    const { displayName, courses, langFilter } = req.body;
 
-    await Company.create({ displayName, courses, langFilters, fair: fairId });
+    await Company.create({ displayName, courses, langFilter, fair: fairId });
     res.redirect(
       `/fair/${fairId}/companies${
         req.query.course ? `?course=${req.query.course}` : ""

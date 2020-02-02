@@ -4,8 +4,9 @@ const Company = require("../db/models/Company");
 const Student = require("../db/models/Student");
 const Fair = require("../db/models/Fair");
 const { initSchedule, generateSchedule } = require("../utils/schedule");
+const { check } = require("../utils/auth");
 
-router.get("/fair/:fairId/interviews", async (req, res) => {
+router.get("/fair/:fairId/interviews", check(), async (req, res) => {
   try {
     const { fairId: fair } = req.params;
     const interviews = await Interview.find({ fair })
@@ -62,7 +63,7 @@ router.get("/fair/:fairId/interviews/student/:studentId", async (req, res) => {
   }
 });
 
-router.post("/fair/:fairId/interviews", async (req, res) => {
+router.post("/fair/:fairId/interviews", check(), async (req, res) => {
   try {
     const { course } = req.query;
     const { fairId } = req.params;
