@@ -37,7 +37,6 @@ router.get("/fair/:fairId/interviews/company/:companyId", async (req, res) => {
     res.render("interviews.hbs", {
       interviews,
       fair: fairId
-      // company: true
     });
   } catch (err) {
     console.log(err);
@@ -48,17 +47,20 @@ router.get("/fair/:fairId/interviews/student/:studentId", async (req, res) => {
   try {
     const { fairId, studentId } = req.params;
 
-    const interviews = await Interview.find({
+    const studentP = await Student.findById(studentId).populate("top3");
+    const interviewsP = Interview.find({
       fair: fairId,
       student: studentId
     })
-      .populate({ path: "student company", populate: { path: "top3" } })
+      .populate("company")
       .sort({ timeSlot: 1 });
+
+    const [student, interviews] = await Promise.all([studentP, interviewsP]);
 
     res.render("interviews.hbs", {
       interviews,
       fair: fairId,
-      student: true
+      student
     });
   } catch (err) {
     console.log(err);
