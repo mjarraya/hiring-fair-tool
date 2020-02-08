@@ -4,6 +4,8 @@ const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
+const flash = require("connect-flash");
+
 const app = express();
 
 app.set("view engine", "hbs");
@@ -20,6 +22,7 @@ app.use(
     })
   })
 );
+app.use(flash());
 
 const routes = require("./routes");
 app.use("/", routes);

@@ -1,5 +1,10 @@
-<form action="/login" method="post">
-  <label for="code">Enter your code</label>
-  <input type="password" name="password" id="code" />
-  <button type="submit">login</button>
-</form>
+<div class="login-container">
+  <form class="login-form" action="/login" method="post">
+    <label for="code">Enter your code</label>
+    <input type="password" name="password" id="code" />
+    <button type="submit">login</button>
+    {{#if error}}
+    <p class="error-message">{{error}}</p>
+    {{/if}}
+  </form>
+</div>

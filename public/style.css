@@ -5,6 +5,8 @@ body {
     "Lucida Sans", Arial, sans-serif;
 }
 
+/* GENERIC TYPE SELECTORS */
+
 h1,
 h2 {
   text-align: center;
@@ -14,10 +16,72 @@ li {
   list-style-type: none;
 }
 
+/* LOGIN FORM */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form label {
+  color: #666;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+form input,
+form button {
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+form button {
+  background: #43a3e6;
+  border: 1px solid #43a3e6;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s ease background;
+  width: 100%;
+}
+
+form button:hover {
+  background: #fff;
+  color: #43a3e6;
+  transition: 0.3s ease background;
+}
+
+.error-message {
+  background: #f02b63;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+/*  */
 .dashboard-container {
   display: flex;
   justify-content: space-evenly;
-  justify-items: baseline;
+}
+
+.dashboard-container > * {
+  flex: 1;
 }
 
 .list-container {
@@ -28,9 +92,18 @@ li {
 .list-container > form {
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 form .group {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 5px;
+}
+
+form .group > * {
+  width: 50%;
+  text-align: start;
+  margin-bottom: initial;
 }

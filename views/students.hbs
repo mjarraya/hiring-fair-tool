@@ -7,11 +7,16 @@
 
 
 <div class="list-container">
+  <ul>
+    {{#each students}}
+    <li><a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a></li>
+    {{/each}}
+  </ul>
   <form action="/fair/{{fair._id}}/students" method="post">
 
     <div class="group">
       <label for="displayName">Name</label>
-      <input type="text" id="displayName" name="displayName" placeholder="display name" />
+      <input type="text" id="displayName" name="displayName" />
     </div>
 
     <div class="group">
@@ -28,25 +33,25 @@
     </div>
 
     <div class="group">
-      <label for="lang" id="lang">Local language?</label>
-      <input type="checkbox" name="lang" placeholder="lang" />
+      <label for="lang">Local language?
+      </label>
+      <input type="checkbox" name="lang" placeholder="lang" id="lang" />
     </div>
 
 
-    Interested in which companies? (max. 3)
+    <label>Interested in which companies? (max. 3)</label>
     {{#each companies}}
     <div class="group">
-      <label for={{_id}}>{{displayName}}</label>
+      <label for={{_id}}>{{displayName}}
+      </label>
       <input type="checkbox" name="top3" value={{_id}} id={{_id}} />
     </div>
     {{/each}}
-
-    <button type="submit">Create</button>
+    {{#if error}}
+    <p class="error-message">{{error}}</p>
+    {{/if}}
+    <button type="submit">Add</button>
   </form>
 
-  <ul>
-    {{#each students}}
-    <li><a href="/fair/{{fair._id}}/interviews/student/{{_id}}">{{displayName}}</a></li>
-    {{/each}}
-  </ul>
+
 </div>

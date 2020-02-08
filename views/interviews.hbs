@@ -1,6 +1,7 @@
 {{#if course}}<h1>Interviews for {{course}}</h1>{{/if}}
 {{#each interviews}}
-<p>{{#if ../student}}<a
+<p>
+  {{#if ../student}}<a
     href="/fair/{{fair._id}}/interviews/company/{{company._id}}">{{company.displayName}}</a>{{else}}<a
     href="/fair/{{fair._id}}/interviews/student/{{student._id}}">{{student.displayName}}</a>{{/if}}
   at {{timeSlot}}</p>

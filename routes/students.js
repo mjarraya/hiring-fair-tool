@@ -21,7 +21,8 @@ router.get("/fair/:fairId/students", check(), async (req, res) => {
       companies,
       students,
       fair: req.session.fair,
-      course
+      course,
+      error: req.flash("error")
     });
   } catch (err) {
     console.log(err);
@@ -32,6 +33,12 @@ router.post("/fair/:fairId/students", check(), async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course, displayName, lang, top3 } = req.body;
+
+    if (top3.length > 3) {
+      req.flash("error", "3 top choices max");
+      return res.redirect(`/fair/${fairId}/students?course=${course}`);
+    }
+
     await Student.create({
       fair: fairId,
       course,

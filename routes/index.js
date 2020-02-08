@@ -5,7 +5,7 @@ router.get("/", (req, res) => {
   if (req.session.fair) {
     res.render("dashboard.hbs", { fair: req.session.fair });
   } else {
-    res.render("login.hbs");
+    res.render("login.hbs", { error: req.flash("error") });
   }
 });
 
@@ -14,6 +14,8 @@ router.post("/login", async (req, res) => {
     const fair = await Fair.findOne({ password: req.body.password });
     if (fair) {
       req.session.fair = fair;
+    } else {
+      req.flash("error", "Incorrect code");
     }
     res.redirect("/");
   } catch (err) {
