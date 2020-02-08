@@ -1,4 +1,4 @@
-<h1>Interviews for {{course}}</h1>
+<h1>Interviews for {{company}}{{student}} {{course}}</h1>
 <table>
 
   <thead>
@@ -6,19 +6,23 @@
       <td></td>
       {{#each companies}}
       <th>
-        {{this}}
+        <a href="/fair/{{../fair}}/interviews/company/{{_id}}?course={{../course}}">{{displayName}}</a>
       </th>
       {{/each}}
     </tr>
   </thead>
 
   <tbody>
-
     {{#each timeSlots}}
     <tr>
       <th>{{@key}}</th>
       {{#each this}}
-      <td>{{student.displayName}}</td>
+      <td>
+        <a href="/fair/{{fair}}/interviews/student/{{student._id}}?course={{../../course}}">{{student.displayName}}</a>
+        {{#if ../../student}}
+        <a href="/fair/{{fair}}/interviews/company/{{company._id}}?course={{course}}">{{company.displayName}}</a>
+        {{/if}}
+      </td>
       {{/each}}
     </tr>
     {{/each}}
@@ -26,7 +30,7 @@
 
 </table>
 
-{{#if course}}
+{{#if showGenerate}}
 <form action="/fair/{{fair}}/interviews?course={{course}}" method="post">
   <button type="submit">Generate interviews for {{course}}</button>
 </form>

@@ -8,10 +8,10 @@
 <div class="list-container">
   <ul>
     {{#each companies}}
-    <li><a href="/fair/{{fair._id}}/interviews/company/{{_id}}">{{displayName}}</a></li>
+    <li><a href="/fair/{{fair._id}}/interviews/company/{{_id}}?course={{../course}}">{{displayName}}</a></li>
     {{/each}}
   </ul>
-  <form action="/fair/{{fair._id}}/companies{{#if course}}?course={{course}}{{/if}}" method="post">
+  <form action="/fair/{{fair._id}}/companies?course={{course}}" method="post">
     <div class="group">
       <label for="displayName">Name</label>
       <input type="text" name="displayName" />

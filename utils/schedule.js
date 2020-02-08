@@ -2,14 +2,16 @@ const initSchedule = (timeRanges, nullFlag) => {
   const schedule = {};
 
   for (const range of timeRanges) {
-    const [start, end] = range.split("|").map(el => parseFloat(el, 10));
+    const [start, end] = range.split("|").map(el => parseFloat(el));
 
-    for (let i = start; i <= end; ) {
-      for (let j = 0; j < 5; j++) {
-        if (parseFloat(i + "." + j) <= end)
-          schedule[
-            (i < 10 ? "0" + i : i) + "." + (j ? j * 10 : "00")
-          ] = nullFlag ? null : [];
+    for (let i = parseInt(start, 10); i <= end; ) {
+      let dec = start.toString().split(".");
+      dec = dec.length > 1 ? parseInt(dec[1], 10) : 0;
+      for (let j = dec; j < 5; j++) {
+        if (parseFloat(i + "." + j) <= end) {
+          const h = (i < 10 ? "0" + i : i) + "." + (j ? j * 10 : "00");
+          schedule[h] = nullFlag ? null : [];
+        }
       }
       i++;
     }
