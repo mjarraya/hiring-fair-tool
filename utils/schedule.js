@@ -1,4 +1,4 @@
-const initSchedule = timeRanges => {
+const initSchedule = (timeRanges, nullFlag) => {
   const schedule = {};
 
   for (const range of timeRanges) {
@@ -7,7 +7,9 @@ const initSchedule = timeRanges => {
     for (let i = start; i <= end; ) {
       for (let j = 0; j < 5; j++) {
         if (parseFloat(i + "." + j) <= end)
-          schedule[(i < 10 ? "0" + i : i) + "." + (j ? j * 10 : "00")] = [];
+          schedule[
+            (i < 10 ? "0" + i : i) + "." + (j ? j * 10 : "00")
+          ] = nullFlag ? null : [];
       }
       i++;
     }
@@ -81,7 +83,8 @@ const generateSchedule = (schedule, students, companies) => {
       schedule[timeSlot].push({
         student: nextStudent._id,
         company: company._id,
-        timeSlot
+        timeSlot,
+        course: nextStudent.course
       });
     });
   });

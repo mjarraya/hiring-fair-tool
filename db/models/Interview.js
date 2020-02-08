@@ -18,6 +18,11 @@ const interviewSchema = new Schema({
   fair: {
     type: Schema.Types.ObjectId,
     ref: "Fair"
+  },
+  course: {
+    type: String,
+    enum: ["WebDev", "UXUI", "Data"],
+    required: true
   }
 });
 

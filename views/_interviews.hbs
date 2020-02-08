@@ -1,0 +1,28 @@
+{{#if course}}<h1>Interviews for {{course}}</h1>{{/if}}
+
+{{#each timeSlots}}
+<p>
+  {{#if ../student}}<a
+    href="/fair/{{fair._id}}/interviews/company/{{company._id}}">{{company.displayName}}</a>{{else}}<a
+    href="/fair/{{fair._id}}/interviews/student/{{student._id}}">{{student.displayName}}</a>{{/if}}
+  at {{timeSlot}}</p>
+{{/each}}
+
+
+{{#if student}}
+{{#if student.lang}}
+Speaks local language
+{{/if}}
+
+Top choices
+
+{{#each student.top3}}
+<a href="/fair/{{fair._id}}/interviews/company/{{_id}}">{{displayName}}</a>
+{{/each}}
+{{/if}}
+
+{{#if course}}
+<form action="/fair/{{fair}}/interviews?course={{course}}" method="post">
+  <button type="submit">Generate interviews for {{course}}</button>
+</form>
+{{/if}}

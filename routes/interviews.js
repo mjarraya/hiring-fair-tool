@@ -9,12 +9,45 @@ const { check } = require("../utils/auth");
 router.get("/fair/:fairId/interviews", check(), async (req, res) => {
   try {
     const { fairId: fair } = req.params;
-    const interviews = await Interview.find({ fair })
+    const { course } = req.query;
+    const interviews = await Interview.find({ fair, course })
       .populate("student company")
       .sort({ timeSlot: 1 });
 
+    const schedule = interviews.length
+      ? initSchedule(
+          [
+            interviews[0].timeSlot +
+              "|" +
+              interviews[interviews.length - 1].timeSlot
+          ],
+          null
+        )
+      : {};
+
+    const companies = [
+      ...new Set(interviews.map(itw => itw.company.displayName))
+    ];
+
+    Object.keys(schedule).forEach(timeSlot => {
+      schedule[timeSlot] = interviews.filter(itw => itw.timeSlot === timeSlot);
+    });
+
+    const timeSlots = Object.keys(schedule).reduce((acc, val, i) => {
+      acc[val] = [];
+      companies.forEach(company => {
+        acc[val].push(
+          Object.values(schedule)[i].find(
+            itw => itw.company.displayName === company
+          ) || null
+        );
+      });
+      return acc;
+    }, {});
+
     res.render("interviews.hbs", {
-      interviews,
+      companies,
+      timeSlots,
       fair,
       course: req.query.course
     });
@@ -34,8 +67,22 @@ router.get("/fair/:fairId/interviews/company/:companyId", async (req, res) => {
       .populate("student company")
       .sort({ timeSlot: 1 });
 
+    const schedule = initSchedule(
+      [
+        interviews[0].timeSlot +
+          "|" +
+          interviews[interviews.length - 1].timeSlot
+      ],
+      true
+    );
+
+    Object.keys(schedule).forEach(timeSlot => {
+      schedule[timeSlot] =
+        interviews.find(itw => itw.timeSlot === timeSlot) || null;
+    });
+
     res.render("interviews.hbs", {
-      interviews,
+      timeSlots: schedule,
       fair: fairId
     });
   } catch (err) {
@@ -55,10 +102,24 @@ router.get("/fair/:fairId/interviews/student/:studentId", async (req, res) => {
       .populate("company")
       .sort({ timeSlot: 1 });
 
-    const [student, interviews] = await Promise.all([studentP, interviewsP]);
+    let [student, interviews] = await Promise.all([studentP, interviewsP]);
+
+    const schedule = initSchedule(
+      [
+        interviews[0].timeSlot +
+          "|" +
+          interviews[interviews.length - 1].timeSlot
+      ],
+      true
+    );
+
+    Object.keys(schedule).forEach(timeSlot => {
+      schedule[timeSlot] =
+        interviews.find(itw => itw.timeSlot === timeSlot) || null;
+    });
 
     res.render("interviews.hbs", {
-      interviews,
+      timeSlots: schedule,
       fair: fairId,
       student
     });
@@ -71,7 +132,7 @@ router.post("/fair/:fairId/interviews", check(), async (req, res) => {
   try {
     const { course } = req.query;
     const { fairId } = req.params;
-    await Interview.deleteMany({ fair: fairId });
+    await Interview.deleteMany({ fair: fairId, course });
 
     const students = await Student.find({ fair: fairId, course });
     const companies = await Company.find({ fair: fairId, courses: course });

@@ -32,9 +32,9 @@ router.get("/fair/:fairId/students", check(), async (req, res) => {
 router.post("/fair/:fairId/students", check(), async (req, res) => {
   try {
     const { fairId } = req.params;
-    const { course, displayName, lang, top3 } = req.body;
+    const { course, displayName, lang, top3 = [] } = req.body;
 
-    if (top3.length > 3) {
+    if (Array.isArray(top3) && top3.length > 3) {
       req.flash("error", "3 top choices max");
       return res.redirect(`/fair/${fairId}/students?course=${course}`);
     }
