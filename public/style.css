@@ -74,15 +74,24 @@ form button:hover {
   text-align: center;
 }
 
-/*  */
+/* dashboard */
 .dashboard-container {
   display: flex;
   justify-content: space-evenly;
 }
 
-.dashboard-container > * {
+.dashboard-container > div {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
+
+.dashboard-container > div > div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* company and student creation */
 
 .list-container {
   display: flex;
@@ -106,4 +115,78 @@ form .group > * {
   width: 50%;
   text-align: start;
   margin-bottom: initial;
+}
+
+/* Interview panel */
+
+.itw-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.itw-table thead,
+.itw-table tbody {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+}
+
+.itw-table tr {
+  display: flex;
+}
+
+.itw-table.itw-center tbody,
+.itw-table.itw-center thead {
+  width: 50vw;
+}
+
+.itw-table.itw-center td:not(.empty),
+.itw-table.itw-center th:not(.empty) {
+  flex: 1;
+}
+
+.itw-table.itw-center td.empty,
+.itw-table.itw-center th.empty {
+  flex: 0;
+}
+
+.itw-table td,
+.itw-table th {
+  flex: 1;
+  justify-content: center;
+  border: 1px solid #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  line-height: 1.7em;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.itw-table td {
+  background-color: #43a3e6;
+}
+
+.itw-table td.empty {
+  background: #fff;
+}
+
+.itw-table th {
+  background-color: #207db8;
+}
+
+.itw-table a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.generate button {
+  width: 30%;
+}
+
+form.generate {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
 }
