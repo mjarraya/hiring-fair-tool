@@ -1,8 +1,14 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* GENERIC TYPE SELECTORS */
@@ -14,6 +20,9 @@ h2 {
 
 li {
   list-style-type: none;
+}
+a {
+  color: #43a3e6;
 }
 
 /* LOGIN FORM */
@@ -189,4 +198,16 @@ form.generate {
   display: flex;
   justify-content: center;
   padding: 1em;
+}
+
+footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+
+  padding: 1em;
+}
+
+.wrapper {
+  flex: 1 0 auto;
 }
