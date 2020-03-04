@@ -52,6 +52,14 @@
     {{/if}}
     <button type="submit">Add</button>
   </form>
-
-
 </div>
+
+{{#if students}}
+<form action="/fair/{{fair._id}}/delete/students" method="get"
+  onsubmit="return confirm('Do you really want to submit the form?');">
+  <input type="text" name="course" value="{{course}}" hidden />
+  <button class="btn-delete">
+    delete all {{course}} students
+  </button>
+</form>
+{{/if}}

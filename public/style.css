@@ -211,3 +211,15 @@ footer {
 .wrapper {
   flex: 1 0 auto;
 }
+
+.btn-delete {
+  border-color: #f02b63;
+  background-color: #f02b63;
+  width: 25%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.btn-delete:hover {
+  color: #f02b63;
+}

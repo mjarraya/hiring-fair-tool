@@ -63,6 +63,7 @@ router.get("/fair/:fairId/interviews", check(), async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
@@ -104,6 +105,7 @@ router.get("/fair/:fairId/interviews/company/:companyId", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
@@ -142,6 +144,7 @@ router.get("/fair/:fairId/interviews/student/:studentId", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
@@ -170,6 +173,7 @@ router.post("/fair/:fairId/interviews", check(), async (req, res) => {
     res.redirect(`/fair/${fairId}/interviews?course=${course}`);
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 

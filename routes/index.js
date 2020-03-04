@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Fair = require("../db/models/Fair");
+const { check } = require("../utils/auth");
 
 router.get("/", (req, res) => {
   if (req.session.fair) {
@@ -20,14 +21,18 @@ router.post("/login", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
+
+const itwRoutes = require("./interviews");
+router.use("/", itwRoutes);
+
+router.use(check("/"));
 
 const studentsRoutes = require("./students");
 router.use("/", studentsRoutes);
 const companiesRoutes = require("./companies");
 router.use("/", companiesRoutes);
-const itwRoutes = require("./interviews");
-router.use("/", itwRoutes);
 
 module.exports = router;

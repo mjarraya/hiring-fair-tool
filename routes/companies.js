@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const Company = require("../db/models/Company");
-const { check } = require("../utils/auth");
 
-router.get("/fair/:fairId/companies", check(), async (req, res) => {
+router.get("/fair/:fairId/companies", async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course } = req.query;
@@ -14,10 +13,11 @@ router.get("/fair/:fairId/companies", check(), async (req, res) => {
     res.render("companies.hbs", { course, companies, fair: req.session.fair });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
-router.post("/fair/:fairId/companies", check(), async (req, res) => {
+router.post("/fair/:fairId/companies", async (req, res) => {
   try {
     const { fairId } = req.params;
     const { displayName, courses, langFilter } = req.body;
@@ -35,7 +35,25 @@ router.post("/fair/:fairId/companies", check(), async (req, res) => {
     );
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
+});
+
+router.get("/fair/:fairId/delete/companies", async (req, res) => {
+  const { fairId } = req.params;
+  const { course } = req.query;
+
+  const deleteQuery = { fair: fairId };
+  if (course) {
+    deleteQuery.courses = course;
+  }
+  await Company.deleteMany(deleteQuery);
+
+  res.redirect(
+    `/fair/${fairId}/companies${
+      req.query.course ? `?course=${req.query.course}` : ""
+    }`
+  );
 });
 
 module.exports = router;

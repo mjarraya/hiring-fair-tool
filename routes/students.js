@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const Student = require("../db/models/Student");
 const Company = require("../db/models/Company");
-const { check } = require("../utils/auth");
+const Interview = require("../db/models/Interview");
 
-router.get("/fair/:fairId/students", check(), async (req, res) => {
+router.get("/fair/:fairId/students", async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course } = req.query;
@@ -26,10 +26,11 @@ router.get("/fair/:fairId/students", check(), async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
-router.post("/fair/:fairId/students", check(), async (req, res) => {
+router.post("/fair/:fairId/students", async (req, res) => {
   try {
     const { fairId } = req.params;
     const { course, displayName, lang, top3 = [] } = req.body;
@@ -50,7 +51,26 @@ router.post("/fair/:fairId/students", check(), async (req, res) => {
     res.redirect(`/fair/${fairId}/students?course=${course}`);
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
 });
 
+router.get("/fair/:fairId/delete/students", async (req, res) => {
+  const { fairId } = req.params;
+  const { course } = req.query;
+
+  const deleteQuery = { fair: fairId };
+  if (course) {
+    deleteQuery.course = course;
+  }
+  await Student.deleteMany(deleteQuery);
+
+  await Interview.deleteMany(deleteQuery);
+
+  res.redirect(
+    `/fair/${fairId}/students${
+      req.query.course ? `?course=${req.query.course}` : ""
+    }`
+  );
+});
 module.exports = router;
